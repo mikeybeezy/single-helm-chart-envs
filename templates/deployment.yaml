@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+  {{- include "test.labels" . | nindent  4 }}
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: {{ .Values.app.replicas }} # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+      {{- include "test.labels" . | nindent  8 }}
+    spec:
+      containers:
+      - name: nginx
+        image: {{ .Values.app.container.image }}
+        resources:
+        {{- toYaml .Values.app.compute | nindent 10 }}
+        ports:
+        - containerPort: 80

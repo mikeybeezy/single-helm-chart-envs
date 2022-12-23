@@ -1,0 +1,33 @@
+app:
+  name:
+  replicas: 6
+  env: prod
+  app: nginx
+  container:
+    image: nginx:1.14.2
+  compute:
+    limits:
+      cpu: 02
+      memory: 500mi
+    requests:
+      cpu: 0.2
+      memory: 500mi
+
+hpa:
+  enabled: true
+  minreplicas: 2
+  maxreplicas: 10
+  targetcpuutil: 50
+
+
+config:
+  name: config.yaml
+  data:
+    timeout: 2s
+    logfile: /app/var/log.txt
+    database:
+      name: ui-dev
+
+
+configxml:
+  name: sample.xml

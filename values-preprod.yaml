@@ -1,0 +1,31 @@
+app:
+  name:
+  replicas: 2
+  env: preprod
+  app: nginx
+  container:
+    image: nginx:1.14.2
+  compute:
+    limits:
+      cpu: 02
+      memory: 500mi
+    requests:
+      cpu: 0.2
+      memory: 500mi
+
+
+hpa:
+  enabled: false
+
+
+config:
+  name: config.yaml
+  data:
+    timeout: 6s
+    logfile: /app/var/log.txt
+    database:
+      name: ui-dev
+
+
+configxml:
+  name: sample.xml
